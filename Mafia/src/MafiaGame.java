@@ -59,6 +59,7 @@ public class MafiaGame {
 		System.out.println(game.getPlayerList());
 		System.out.println(game.getPlayerIndexList());
 		System.out.println("a change");
+		System.out.println("a branch test");
 	}
 
 }
