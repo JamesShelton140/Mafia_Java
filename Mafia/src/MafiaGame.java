@@ -58,6 +58,7 @@ public class MafiaGame {
 		game.testFunc(game.getPlayerList(), game.getPlayerIndexList());
 		System.out.println(game.getPlayerList());
 		System.out.println(game.getPlayerIndexList());
+		System.out.println("a change");
 	}
 
 }
