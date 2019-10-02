@@ -48,28 +48,47 @@ public class MafiaGame {
 		 Boolean programRunning = true;
 		 Scanner input = new Scanner(System.in);
 		 
+		 //Menu options array
 		 String[] mainMenu = {"Setup", "Play", "Exit"};
 		 
 		 while(programRunning == true) {
 			 
 			 Output.printMenu(mainMenu);
 			 
-			 int selectedOption = 0;
-			 selectedOption = input.nextInt();
+			 //Set default behaviour to avoid infinite loops
+			 String selectedOption = "Exit";
 			 
+			 //Get and parse user input
+			 selectedOption = input.next().toLowerCase();
+			 
+			 //List all options and viable input
+			 String[] Setup = {"setup",Integer.toString(Arrays.asList(mainMenu).indexOf("Setup")+1)};
+			 String[] Play = {"play",Integer.toString(Arrays.asList(mainMenu).indexOf("Play")+1)};
+			 String[] Exit = {"exit","0","q","quit"};
+			 
+			 String[][] optionsToParse = {Setup, Play, Exit};
+			 
+			 for(int i = 0; i < optionsToParse.length; i++) {
+				 if(Arrays.asList(optionsToParse[i]).contains(selectedOption)) {
+					 selectedOption = optionsToParse[i][0];
+				 }
+			 }
+			 
+			 //Act on user input
 			 switch (selectedOption) {
-			 	case 1:
+			 	case "setup":
 			 		//setup();
 			 		break;
 			 		
-			 	case 2:
+			 	case "play":
 			 		play();
 			 		break;
 			 		
-			 	case 3:
+			 	case "3":
 			 		break;
 			 		
-			 	case 0:
+			 	case "exit":
+			 		System.out.println("Exiting game!");
 			 		programRunning = false;
 			 		break;
 			 		
