@@ -32,16 +32,7 @@ public class MafiaGame {
 	 * Game Methods
 	 */
 	
-	public void testFunc(ArrayList<Player> playerList1, ArrayList<Integer> playerIndexList1) {
-		playerList1.add(new Player("Arnie"));
-		playerIndexList1.add(2);
-	}
-	
-	public void activate(String[] Players) {
-		
-	}
-	
-	public void resolve(String[] Players) {
+	public void pollActions(String[] Players) {
 		
 	}
 	
@@ -54,13 +45,7 @@ public class MafiaGame {
 		
 		MafiaGame game = new MafiaGame();
 		System.out.println(game.getPlayerList());
-		System.out.println(game.getPlayerIndexList()); 
-		game.testFunc(game.getPlayerList(), game.getPlayerIndexList());
-		System.out.println(game.getPlayerList());
 		System.out.println(game.getPlayerIndexList());
-		System.out.println("a change");
-		System.out.println("a branch test");
-		System.out.println("a comit test");
 	}
 
 }
