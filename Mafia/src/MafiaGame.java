@@ -1,4 +1,8 @@
 import java.util.*;
+import java.io.*;
+//import java.nio.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class MafiaGame {
 	
@@ -77,7 +81,13 @@ public class MafiaGame {
 			 //Act on user input
 			 switch (selectedOption) {
 			 	case "setup":
-			 		//setup();
+					try {
+						setup();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						System.out.println("Input exception in setup!");
+						e.printStackTrace();
+					}
 			 		break;
 			 		
 			 	case "play":
@@ -101,10 +111,24 @@ public class MafiaGame {
 	}
 	
 	/*
+	 * Game Setup Logic
+	 */
+	
+	private void setup() throws IOException{
+		
+		String[][] setup = Input.importSetup("default");
+		
+		System.out.println(Arrays.deepToString(setup));
+		
+	}
+	
+	/*
 	 * Game Logic
 	 */
 	
 	private void play() {
+		
+		
 		
 		Boolean gameNotFinished = true;
 		
