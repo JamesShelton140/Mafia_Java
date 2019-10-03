@@ -31,8 +31,10 @@ public class Input {
 		return setupData.toArray(tempArray);
 	}
 	
+	// TODO create file reader method
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
