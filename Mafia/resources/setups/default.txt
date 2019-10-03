@@ -1,0 +1,4 @@
+mafia 3
+cop 1
+doctor 1
+serialkiller 1
