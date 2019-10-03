@@ -12,12 +12,10 @@ public class Cop extends Role {
 
 	@Override
 	public void ability(Player[] players, int[] playerIndex) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 
