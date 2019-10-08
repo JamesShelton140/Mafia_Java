@@ -6,30 +6,64 @@ import java.nio.file.Paths;
 
 public class MafiaGame {
 	
+	private static final String[] availableRoles = {"vanilla", "vanillatown", "vanillamafia", "cop", "doctor"};
+	
 	/*
 	 * Field parameters
 	 */
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private ArrayList<Integer> playerIndexList = new ArrayList<Integer>();
+	private ArrayList<Role> roleList = new ArrayList<Role>();
 	/*
 	 * Constructors
 	 */
 	
 	public MafiaGame() {
 		playerList.add(new Player("James"));
-		playerIndexList.add(1);
+		playerIndexList.add(0);
 	}
 	
 	/*
 	 * Accessors and Mutators
 	 */
+	public static String[] availableRoles() {
+		return availableRoles;
+	}
 	
-	public ArrayList<Player> getPlayerList(){
+	public ArrayList<Player> getPlayerList() {
 		return playerList;
 	}
 	
 	public ArrayList<Integer> getPlayerIndexList() {
 		return playerIndexList;
+	}
+	
+	public ArrayList<Role> getRoleList() {
+		return roleList;
+	}
+	
+	public void setPlayerList(Player[] playerList) {
+		this.playerList = new ArrayList<Player>(Arrays.asList(playerList));
+		for(int i = 0; i < playerList.length; i++ ) {
+			this.playerIndexList.add(Integer.valueOf(i));
+		}
+	}
+	
+	public void addPLayer(Player player) {
+		this.playerList.add(player);
+		this.playerIndexList.add(Integer.valueOf(playerIndexList.size()));
+	}
+	
+	public void setRoleList(Role[] roleList ) {
+		this.roleList = new ArrayList<Role>(Arrays.asList(roleList));
+	}
+	
+	public void setRoleListFromString(String[] roleList) {
+		
+	}
+	
+	public void addRole(Role role) {
+		this.roleList.add(role);
 	}
 	
 	/*
@@ -127,7 +161,9 @@ public class MafiaGame {
 	
 	private void play() {
 		
+		// TODO create setup loading method
 		
+		setRoleList()  ;
 		
 		Boolean gameNotFinished = true;
 		

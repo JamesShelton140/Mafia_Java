@@ -7,7 +7,44 @@ import static java.nio.file.FileVisitResult.*;
 import static java.nio.file.FileVisitOption.*;
 
 public class Input {
-
+	
+	//Method convert a role name passed as a string to an instance of that role and returns
+	/*
+	 * 
+	 * All new roles must be added the following switch so that the game can recognise that they exist.
+	 * 
+	 */
+		public static Role convertToRole(String roleString) {
+			Role role = null;
+			
+			ArrayList<String> availableRoles = new ArrayList<String>(Arrays.asList(MafiaGame.availableRoles()));
+			
+			if( !availableRoles.contains(roleString)) {
+				System.out.println("Role not available!");
+			}
+			
+			switch (roleString.toLowerCase()) {
+				case "vanilla":
+					role = new Vanilla();
+					break;
+				case "vanillatown":
+					role = new Vanilla("town");
+					break;
+				case "vanillamafia":
+					role = new Vanilla("mafia");
+					break;
+				case "cop":
+					role = new Cop();
+					break;
+				case "doctor":
+					role = new Doctor();
+				default:
+					role = null;
+			}
+			
+			return role;
+		}
+		
 	public static void inputMenuOption() {
 		
 	}
@@ -83,6 +120,7 @@ public class Input {
 		//return array of filenames
 		return finder.done();
 	}
+	
 	
 	public static void main(String[] args) {
 		
