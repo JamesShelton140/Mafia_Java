@@ -12,7 +12,7 @@ public abstract class Role {
 	 */
 	
 	protected Role() {
-		setAlignment(null);
+		this(null);
 	}
 	
 	protected Role(String alignment) {
