@@ -19,8 +19,7 @@ public class MafiaGame {
 	 */
 	
 	public MafiaGame() {
-		playerList.add(new Player("James"));
-		playerIndexList.add(0);
+		
 	}
 	
 	/*
@@ -49,7 +48,7 @@ public class MafiaGame {
 		}
 	}
 	
-	public void addPLayer(Player player) {
+	public void addPlayer(Player player) {
 		this.playerList.add(player);
 		this.playerIndexList.add(Integer.valueOf(playerIndexList.size()));
 	}
@@ -58,8 +57,16 @@ public class MafiaGame {
 		this.roleList = new ArrayList<Role>(Arrays.asList(roleList));
 	}
 	
-	public void setRoleListFromString(String[] roleList) {
-		
+	public void setRoleListString(String[] roles) {
+		for(int i = 0; i < roles.length; i++ ) {
+			this.roleList.add(Input.convertToRole(roles[i]));
+		} 
+	}
+	
+	public void fillRemainingRolesAsTown() {
+		while(this.getRoleList().size() <  this.getPlayerList().size()) {
+			this.addRole(Input.convertToRole("vanillatown"));
+		}
 	}
 	
 	public void addRole(Role role) {
@@ -69,6 +76,27 @@ public class MafiaGame {
 	/*
 	 * Game Methods
 	 */
+	public void assignRoles() {
+		//Initialise temp indexing array
+		ArrayList<Integer> playersNotYetAssigned = new ArrayList<Integer>();
+		for(int i = 0; i < this.getPlayerList().size(); i++) {
+			playersNotYetAssigned.add(Integer.valueOf(i));
+		}
+		
+		//initialise random number generator
+		Random randGenerator = new Random();
+		
+		for(int i = 0; i < this.getRoleList().size(); i++) {
+			//generate random number
+			int chosen = randGenerator.nextInt(playersNotYetAssigned.size());
+			//assign role to corresponing player
+			this.getPlayerList().get(playersNotYetAssigned.get(chosen)).setRole(this.getRoleList().get(i));
+			//remove chosen index from index list
+			System.out.println(playersNotYetAssigned.size() + ". " + this.getPlayerList().get(playersNotYetAssigned.get(chosen)) + ", " + this.getRoleList().get(i));
+			playersNotYetAssigned.remove(chosen);
+			
+		}
+	}
 	
 	public void pollActions(String[] Players) {
 		
@@ -100,15 +128,16 @@ public class MafiaGame {
 			 selectedOption = input.next().toLowerCase();
 			 
 			 //List all options and viable input
-			 String[] Setup = {"setup",Integer.toString(Arrays.asList(mainMenu).indexOf("Setup")+1)};
-			 String[] Play = {"play",Integer.toString(Arrays.asList(mainMenu).indexOf("Play")+1)};
-			 String[] Exit = {"exit","0","q","quit"};
+			 String[] Setup = {"setup", Integer.toString(Arrays.asList(mainMenu).indexOf("Setup")+1)};
+			 String[] Play = {"play", Integer.toString(Arrays.asList(mainMenu).indexOf("Play")+1)};
+			 String[] Exit = {"exit", "0", "q", "quit"};
 			 
 			 String[][] optionsToParse = {Setup, Play, Exit};
 			 
 			 for(int i = 0; i < optionsToParse.length; i++) {
 				 if(Arrays.asList(optionsToParse[i]).contains(selectedOption)) {
 					 selectedOption = optionsToParse[i][0];
+					 break;
 				 }
 			 }
 			 
@@ -161,9 +190,33 @@ public class MafiaGame {
 	
 	private void play() {
 		
-		// TODO create setup loading method
+		//TODO create player list creation menu
+		int numberOfPlayers = 10;
+		for(int i = 0; i < numberOfPlayers; i++) {
+			Player player = new Player("Player "+Integer.toString(i + 1));
+			this.addPlayer(player);
+		}
 		
-		setRoleList()  ;
+		// TODO create setup loading menu
+		
+		try {
+			this.setRoleList(Input.loadSetup(Input.importSetup("default")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		this.fillRemainingRolesAsTown();
+		
+		System.out.println(this.getPlayerList().size() + " players");
+		System.out.println(this.getPlayerList());
+		System.out.println(this.getRoleList().size() + " roles");
+		System.out.println(this.getRoleList());
+		
+		this.assignRoles();
+		
+		for(int i = 0; i < this.getPlayerList().size(); i++) {
+			System.out.println(this.getPlayerList().get(i) + " has role " + this.getPlayerList().get(i).getRole());
+		}
 		
 		Boolean gameNotFinished = true;
 		
@@ -176,6 +229,10 @@ public class MafiaGame {
 			 */
 			gameNotFinished = false;
 		}
+		
+		this.getPlayerList().clear();
+		this.getRoleList().clear();
+		this.getPlayerIndexList().clear();
 	}
 	
 	

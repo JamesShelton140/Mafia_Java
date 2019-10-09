@@ -18,9 +18,8 @@ public class Input {
 			Role role = null;
 			
 			ArrayList<String> availableRoles = new ArrayList<String>(Arrays.asList(MafiaGame.availableRoles()));
-			
 			if( !availableRoles.contains(roleString)) {
-				System.out.println("Role not available!");
+				System.out.println(roleString + " role not available!");
 			}
 			
 			switch (roleString.toLowerCase()) {
@@ -38,6 +37,7 @@ public class Input {
 					break;
 				case "doctor":
 					role = new Doctor();
+					break;
 				default:
 					role = null;
 			}
@@ -49,6 +49,7 @@ public class Input {
 		
 	}
 	
+	//Import setup from file
 	public static String[][] importSetup(String setupName) throws IOException {
 		
 		ArrayList<String[]> setupData = new ArrayList<String[]>();
@@ -68,8 +69,24 @@ public class Input {
         scanner.close();
 		
         //re-type setup data to String[][] array and return
-        String[][] tempStringArray = new String[1][];
-		return setupData.toArray(tempStringArray);
+        //String[][] tempStringArray = new String[1][];
+		return setupData.toArray(new String[1][]);
+	}
+	
+	//Load setup into active game
+	public static Role[] loadSetup(String[][] setup) {
+		ArrayList<Role> roleList = new ArrayList<Role>();
+		
+		//Add the required number of each role to the temporary list
+		for(int i = 0; i < setup.length; i++) {
+			Role role = convertToRole(setup[i][0]);
+			for(int j = 0; j < Integer.parseInt(setup[i][1]); j++) {
+				roleList.add(role);
+			}
+		}
+		
+		Role[] tempRoleArray = new Role[1];
+		return roleList.toArray(tempRoleArray);
 	}
 	
 	
@@ -123,7 +140,7 @@ public class Input {
 	
 	
 	public static void main(String[] args) {
-		
+		/*
 		String[] setups = null;
 		try {
 			setups = findFiles(".\\resources\\setups", "*.stp");
@@ -137,7 +154,14 @@ public class Input {
 		} else {
 			System.out.println("Setups not initialised!");
 		}
-			
+		*/
+		
+		try {
+			System.out.println(Arrays.toString(loadSetup(importSetup("default"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
