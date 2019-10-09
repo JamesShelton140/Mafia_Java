@@ -20,7 +20,7 @@ public class Vanilla extends Role {
 	
 	
 	public String toString() {
-		return "vanilla";
+		return "vanilla " + getAlignment();
 	}
 	
 	@Override

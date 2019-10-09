@@ -17,16 +17,11 @@ public class Player {
 	 */
 	
 	public Player() {
-		setProperty("name", "newPlayer");
-		setProperty("alive", "true");
-		Role role = new Vanilla();
-		setRole(role);
+		this("newPlayer");
 	}
 	
 	public Player(Role role) {
-		setProperty("name", "newPlayer");
-		setProperty("alive", "true");
-		setRole(role);
+		this("newPlayer", role);
 	}
 	
 	public Player(String name) {
