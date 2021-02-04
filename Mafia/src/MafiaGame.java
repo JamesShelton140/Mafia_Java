@@ -89,7 +89,7 @@ public class MafiaGame {
 		for(int i = 0; i < this.getRoleList().size(); i++) {
 			//generate random number
 			int chosen = randGenerator.nextInt(playersNotYetAssigned.size());
-			//assign role to corresponing player
+			//assign role to corresponding player
 			this.getPlayerList().get(playersNotYetAssigned.get(chosen)).setRole(this.getRoleList().get(i));
 			//remove chosen index from index list
 			System.out.println(playersNotYetAssigned.size() + ". " + this.getPlayerList().get(playersNotYetAssigned.get(chosen)) + ", " + this.getRoleList().get(i));
